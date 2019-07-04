@@ -39,8 +39,8 @@ typedef NS_ENUM(NSInteger, SK_AUTOSCROLL_DIRECTION){
  *  @param textContent Fill in the text content that needs to be scrolled here.
  *  @param direction Direction of text content scrolling. The default type is SK_AUTOSCROLL_DIRECTION_RIGHT.
  */
-- (instancetype)initWithTextContent:(NSString * _Nonnull)textContent
-                      direction:(SK_AUTOSCROLL_DIRECTION)direction;
+- (instancetype _Nonnull )initWithTextContent:(NSString * _Nonnull)textContent
+                                    direction:(SK_AUTOSCROLL_DIRECTION)direction;
 
 /**
  *  Initializes an `SKAutoScrollLabel` object of rich text type in current viewController.
@@ -50,8 +50,8 @@ typedef NS_ENUM(NSInteger, SK_AUTOSCROLL_DIRECTION){
  *  @param attributedTextContent Fill in the rich text content that needs to be scrolled here.
  *  @param direction Direction of text content scrolling. The default type is SK_AUTOSCROLL_DIRECTION_RIGHT.
  */
-- (instancetype)initWithAttributedTextContent:(NSAttributedString * _Nonnull)attributedTextContent
-                                    direction:(SK_AUTOSCROLL_DIRECTION)direction;
+- (instancetype _Nonnull)initWithAttributedTextContent:(NSAttributedString * _Nonnull)attributedTextContent
+                                             direction:(SK_AUTOSCROLL_DIRECTION)direction;
 
 /**
  *  Direction of text content scrolling.The default type is SK_AUTOSCROLL_DIRECTION_RIGHT.
@@ -86,12 +86,12 @@ typedef NS_ENUM(NSInteger, SK_AUTOSCROLL_DIRECTION){
 /**
  *  Plain text color.
  */
-@property (nonatomic, strong) UIColor *textColor;
+@property (nonatomic, strong) UIColor * _Nullable textColor;
 
 /**
  *  Plain text font.
  */
-@property (nonatomic, strong) UIFont *font;
+@property (nonatomic, strong) UIFont * _Nullable font;
 
 /**
  *  Plain text alignment. 
@@ -102,6 +102,9 @@ typedef NS_ENUM(NSInteger, SK_AUTOSCROLL_DIRECTION){
  *  Default YES. Enable gradients of lable boundaries to fade.
  */
 @property (nonatomic, assign) BOOL enableFade;
+
+/// 由外面设置完属性后调用初始化方法，防止调用 pauseScroll 时，还没有初始化。
+- (void)initViews;
 
 /**
  *  Pause scrolling animation being played.

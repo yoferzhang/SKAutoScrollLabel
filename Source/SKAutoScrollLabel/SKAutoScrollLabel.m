@@ -150,6 +150,16 @@ static const CGFloat kDefaultFadeLength = 7.f;
     }
 }
 
+/// 由外面设置完属性后调用初始化方法，防止调用 pauseScroll 时，还没有初始化。
+- (void)initViews
+{
+    if (self.layoutCount < 1) {
+        [self initElements];
+        [self creatDisplayLink];
+        self.layoutCount++;
+    }
+}
+
 #pragma mark - Create repeatLabel
 
 - (void)createRepeatLabel {
@@ -271,44 +281,6 @@ static const CGFloat kDefaultFadeLength = 7.f;
 - (void)stopDisplayLinke {
     [self.displayLinke invalidate];
     self.displayLinke = nil;
-}
-
-#pragma mark - Setter
-
-- (void)setDirection:(SK_AUTOSCROLL_DIRECTION)direction {
-    _direction = direction;
-}
-
-- (void)setPointsPerFrame:(CGFloat)pointsPerFrame {
-    _pointsPerFrame = pointsPerFrame;
-}
-
-- (void)setLabelSpacing:(NSUInteger)labelSpacing {
-    _labelSpacing = labelSpacing;
-}
-
-- (void)setTextContent:(NSString *)textContent {
-    _textContent = textContent;
-}
-
-- (void)setAttributedTextContent:(NSAttributedString *)attributedTextContent {
-    _attributedTextContent = attributedTextContent;
-}
-
-- (void)setTextColor:(UIColor *)textColor {
-    _textColor = textColor;
-}
-
-- (void)setFont:(UIFont *)font {
-    _font = font;
-}
-
-- (void)setTextAlignment:(NSTextAlignment)textAlignment {
-    _textAlignment = textAlignment;
-}
-
-- (void)setEnableFade:(BOOL)enableFade {
-    _enableFade = enableFade;
 }
 
 #pragma mark - Scrolling animation control
